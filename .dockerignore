@@ -1,0 +1,13 @@
+# ignore all docker files
+Dockerfile.*
+docker-compose*
+
+# git
+.git
+
+# ignore changes in readme
+README.md
+CHANGELOG.md
+
+# node modules
+node_modules

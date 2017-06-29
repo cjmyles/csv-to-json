@@ -1,0 +1,23 @@
+version: '2.1'
+
+volumes:
+  # use named volume for node_modules and avoid having to run npm install independently on every container
+  node_modules:
+
+services:
+  
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "grunt"
+    environment:
+      - PORT=9001
+      - NPM_NO_BIN_LINKS=1
+    ports:
+      - "9001:9001"  # nodejs port
+      - "35729:35729"  # livereload
+    volumes:
+      - ./:/home/node/app  # map in the live code
+      - /home/node/.npm  # used to cache npm install downloads
+      - node_modules:/home/node/app/node_modules  # use a volume for node_modules, otherwise they're stored on the host's filesystem (which causes problems)
